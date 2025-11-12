@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Who is in Charge of Safety?</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 40px;
+      font-size: 1.8rem;
+    }
+    button {
+      background-color: #22c55e;
+      color: white;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      padding: 15px 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, background 0.3s;
+    }
+    button:hover {
+      background-color: #16a34a;
+      transform: scale(1.05);
+    }
+    video {
+      margin-top: 30px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      display: none;
+    }
+    .caption {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      display: none;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Click to know who is in charge of Safety 👷‍♂️</h1>
+  <button id="startBtn">Show Me</button>
+  <video id="mirror" autoplay playsinline></video>
+  <div class="caption" id="caption">You are the Safety Officer! 😄</div>
+
+  <script>
+    const button = document.getElementById('startBtn');
+    const video = document.getElementById('mirror');
+    const caption = document.getElementById('caption');
+
+    button.addEventListener('click', async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user" }
+        });
+        video.srcObject = stream;
+        video.style.display = 'block';
+        caption.style.display = 'block';
+        button.style.display = 'none';
+      } catch (err) {
+        alert('Camera access denied or not available.');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
